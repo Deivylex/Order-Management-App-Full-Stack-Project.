@@ -1,0 +1,69 @@
+<svg width="120" height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Boeing 737 realista -->
+  
+  <!-- Sombra -->
+  <ellipse cx="62" cy="22" rx="55" ry="8" fill="#000" opacity="0.1"/>
+  
+  <!-- Fuselaje principal -->
+  <ellipse cx="60" cy="20" rx="50" ry="6" fill="#F8F8F8"/>
+  <ellipse cx="60" cy="20" rx="48" ry="5" fill="#FFFFFF"/>
+  
+  <!-- Nariz cónica -->
+  <ellipse cx="15" cy="20" rx="12" ry="5" fill="#E8E8E8"/>
+  <ellipse cx="12" cy="20" rx="8" ry="3" fill="#D0D0D0"/>
+  <ellipse cx="8" cy="20" rx="4" ry="2" fill="#B8B8B8"/>
+  
+  <!-- Ventanas de cabina -->
+  <polygon points="20,18 28,16 28,24 20,22" fill="#4A90E2" opacity="0.8"/>
+  <polygon points="21,18.5 27,17 27,23 21,21.5" fill="#87CEEB" opacity="0.9"/>
+  
+  <!-- Ventanas de pasajeros -->
+  <circle cx="32" cy="19" r="1.2" fill="#87CEEB" opacity="0.9"/>
+  <circle cx="36" cy="19" r="1.2" fill="#87CEEB" opacity="0.9"/>
+  <circle cx="40" cy="19" r="1.2" fill="#87CEEB" opacity="0.9"/>
+  <circle cx="44" cy="19" r="1.2" fill="#87CEEB" opacity="0.9"/>
+  <circle cx="48" cy="19" r="1.2" fill="#87CEEB" opacity="0.9"/>
+  <circle cx="52" cy="19" r="1.2" fill="#87CEEB" opacity="0.9"/>
+  <circle cx="56" cy="19" r="1.2" fill="#87CEEB" opacity="0.9"/>
+  <circle cx="60" cy="19" r="1.2" fill="#87CEEB" opacity="0.9"/>
+  <circle cx="64" cy="19" r="1.2" fill="#87CEEB" opacity="0.9"/>
+  <circle cx="68" cy="19" r="1.2" fill="#87CEEB" opacity="0.9"/>
+  <circle cx="72" cy="19" r="1.2" fill="#87CEEB" opacity="0.9"/>
+  <circle cx="76" cy="19" r="1.2" fill="#87CEEB" opacity="0.9"/>
+  <circle cx="80" cy="19" r="1.2" fill="#87CEEB" opacity="0.9"/>
+  <circle cx="84" cy="19" r="1.2" fill="#87CEEB" opacity="0.9"/>
+  
+  <!-- Alas principales -->
+  <ellipse cx="55" cy="20" rx="30" ry="15" fill="#E8E8E8"/>
+  <ellipse cx="55" cy="20" rx="28" ry="13" fill="#F0F0F0"/>
+  
+  <!-- Motores realistas -->
+  <ellipse cx="45" cy="30" rx="6" ry="8" fill="#D0D0D0"/>
+  <ellipse cx="45" cy="30" rx="5" ry="7" fill="#E0E0E0"/>
+  <ellipse cx="45" cy="30" rx="3" ry="5" fill="#404040"/>
+  <ellipse cx="65" cy="30" rx="6" ry="8" fill="#D0D0D0"/>
+  <ellipse cx="65" cy="30" rx="5" ry="7" fill="#E0E0E0"/>
+  <ellipse cx="65" cy="30" rx="3" ry="5" fill="#404040"/>
+  
+  <!-- Cola y estabilizadores -->
+  <polygon points="95,20 110,15 108,25" fill="#E8E8E8"/>
+  <polygon points="96,20 108,16 107,24" fill="#F0F0F0"/>
+  
+  <!-- Estabilizador vertical -->
+  <polygon points="105,10 115,5 110,20 105,20" fill="#E0E0E0"/>
+  <polygon points="106,12 113,8 109,19 106,19" fill="#F0F0F0"/>
+  
+  <!-- Detalles del fuselaje -->
+  <line x1="25" y1="20" x2="95" y2="20" stroke="#D0D0D0" stroke-width="0.5"/>
+  <line x1="30" y1="17" x2="90" y2="17" stroke="#E8E8E8" stroke-width="0.3"/>
+  <line x1="30" y1="23" x2="90" y2="23" stroke="#E8E8E8" stroke-width="0.3"/>
+  
+  <!-- Luces de navegación -->
+  <circle cx="6" cy="20" r="1" fill="#FF4444"/>
+  <circle cx="110" cy="20" r="0.8" fill="#00FF00"/>
+  <circle cx="112" cy="8" r="0.8" fill="#FFFFFF"/>
+  
+  <!-- Tren de aterrizaje sugerido -->
+  <rect x="35" y="24" width="1" height="3" fill="#808080"/>
+  <rect x="75" y="24" width="1" height="3" fill="#808080"/>
+</svg>
