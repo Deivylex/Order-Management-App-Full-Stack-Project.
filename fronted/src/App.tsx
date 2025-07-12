@@ -1,12 +1,20 @@
-import './App.css';
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import Header from './components/Header';
 import FlightList from './components/FlightList';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Following flights in Venezuela 🇻🇪</h1>
-      <FlightList />
-    </div>
+    <AuthProvider>
+      <div className="App min-h-screen">
+        <ProtectedRoute>
+          <Header />
+          <main className="py-6">
+            <FlightList />
+          </main>
+        </ProtectedRoute>
+      </div>
+    </AuthProvider>
   );
 }
 
