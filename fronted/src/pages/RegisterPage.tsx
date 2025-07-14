@@ -1,23 +1,44 @@
 import React, { useState } from 'react';
 import AuthLayout from '../components/auth/AuthLayout';
-import LoginForm from '../components/auth/LoginForm';
+import RegisterForm from '../components/auth/RegisterForm';
 import SocialAuth from '../components/auth/SocialAuth';
 import { useAuth } from '../contexts/AuthContext';
 
-interface LoginPageProps {
-  onSwitchToRegister?: () => void;
+interface RegisterPageProps {
+  onSwitchToLogin?: () => void;
 }
 
-const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
-  const { login, isLoading } = useAuth();
+const RegisterPage: React.FC<RegisterPageProps> = ({ onSwitchToLogin }) => {
+  const { register, isLoading } = useAuth();
   const [error, setError] = useState<string>('');
 
-  const handleLogin = async (credentials: { email: string; password: string }) => {
+  const handleRegister = async (credentials: { 
+    name: string; 
+    email: string; 
+    password: string; 
+    confirmPassword: string 
+  }) => {
     setError('');
-    const success = await login(credentials);
+    
+    // Client-side validation
+    if (credentials.password !== credentials.confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    if (credentials.password.length < 6) {
+      setError('Password must be at least 6 characters long.');
+      return;
+    }
+
+    const success = await register({
+      name: credentials.name,
+      email: credentials.email,
+      password: credentials.password
+    });
     
     if (!success) {
-      setError('Invalid credentials. Please try again.');
+      setError('Registration failed. Please try again.');
     }
   };
 
@@ -35,21 +56,21 @@ const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
         </div>
       )}
       
-      <LoginForm onSubmit={handleLogin} isLoading={isLoading} />
+      <RegisterForm onSubmit={handleRegister} isLoading={isLoading} />
       <SocialAuth isLoading={isLoading} />
       
       <div className="mt-6 text-center">
         <p className="text-sm text-gray-400">
-          Don't have an account?{' '}
+          Already have an account?{' '}
           <button
-            onClick={onSwitchToRegister}
+            onClick={onSwitchToLogin}
             className={`font-medium text-slate-300 hover:text-white transition-colors ${
               isLoading ? 'pointer-events-none opacity-75' : ''
             }`}
-            aria-label="Register new account"
+            aria-label="Sign in to existing account"
             disabled={isLoading}
           >
-            Sign up
+            Sign in
           </button>
         </p>
       </div>
@@ -57,4 +78,4 @@ const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
