@@ -1,9 +1,11 @@
 const appRoutes = require('express').Router()
 const axios = require('axios')
 const logger = require('../utils/logger')
+const path = require('path')
+const fs = require('fs')
 
 appRoutes.get('/', async(req, res) => {
-    try {
+
         const response = await axios.get('https://opensky-network.org/api/states/all?lamin=59.7&lomin=20.5&lamax=70.1&lomax=31.6')
         const data = response.data.states
         
@@ -44,14 +46,22 @@ appRoutes.get('/', async(req, res) => {
             flights: flights
         });
         
-    } catch (error) {
-        logger.error('Error fetching flight data:', error.message);
-        res.status(500).json({
-            success: false,
-            message: "Error retrieving flight data",
-            error: error.message
-        });
+})
+
+appRoutes.get('/test', async (req, res) => {
+    const filePath = path.join(__dirname, '../../fake_users_20k.json')
+    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'))
+
+    res.setHeader('Content-Type', 'application/json')
+    res.setHeader('Transfer-Encoding', 'chunked')
+
+    const chunkSize = 1000
+    for (let i = 0; i < data.length; i += chunkSize) {
+        const chunk = data.slice(i, i + chunkSize)
+        res.write(JSON.stringify(chunk) + '\n')
     }
+
+    res.end()
 })
 
 module.exports = appRoutes

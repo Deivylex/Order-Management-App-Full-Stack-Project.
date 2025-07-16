@@ -2,7 +2,12 @@ import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { FiLogOut } from 'react-icons/fi';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  currentPage: 'flights' | 'profile';
+  onNavigate: (page: 'flights' | 'profile') => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
   const { logout, user } = useAuth();
   return (
     <header className="bg-gray-900/95 backdrop-blur-sm shadow-xl border-b border-gray-700/50 sticky top-0 z-50">
@@ -19,24 +24,32 @@ const Header: React.FC = () => {
             </div>
           </div>
           <nav className="flex items-center space-x-1">
-            <a 
-              href="#" 
-              className="bg-slate-700 text-gray-100 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-600 transition-colors"
+            <button
+              onClick={() => onNavigate('flights')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                currentPage === 'flights' 
+                  ? 'bg-slate-700 text-gray-100' 
+                  : 'text-gray-300 hover:text-gray-100 hover:bg-slate-800'
+              }`}
             >
               Flights
-            </a>
+            </button>
             <a 
               href="#" 
               className="text-gray-300 hover:text-gray-100 hover:bg-slate-800 px-4 py-2 rounded-lg text-sm font-medium transition-all"
             >
               My Bookings
             </a>
-            <a 
-              href="#" 
-              className="text-gray-300 hover:text-gray-100 hover:bg-slate-800 px-4 py-2 rounded-lg text-sm font-medium transition-all"
+            <button
+              onClick={() => onNavigate('profile')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                currentPage === 'profile'
+                  ? 'bg-slate-700 text-gray-100'
+                  : 'text-gray-300 hover:text-gray-100 hover:bg-slate-800'
+              }`}
             >
               Profile
-            </a>
+            </button>
             
             {/* User info and logout */}
             <div className="flex items-center space-x-3 ml-4 pl-4 border-l border-gray-600">
