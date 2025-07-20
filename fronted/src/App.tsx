@@ -1,35 +1,59 @@
-import { useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import PublicRoute from './components/PublicRoute';
 import Header from './components/Header';
 import FlightList from './components/FlightList';
 import ProfilePage from './pages/ProfilePage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'flights' | 'profile'>('flights');
-
-  const renderCurrentPage = () => {
-    switch (currentPage) {
-      case 'profile':
-        return <ProfilePage />;
-      case 'flights':
-      default:
-        return (
-          <main className="py-6">
-            <FlightList />
-          </main>
-        );
-    }
-  };
-
   return (
     <AuthProvider>
-      <div className="App min-h-screen">
-        <ProtectedRoute>
-          <Header currentPage={currentPage} onNavigate={setCurrentPage} />
-          {renderCurrentPage()}
-        </ProtectedRoute>
-      </div>
+      <BrowserRouter>
+        <div className="App min-h-screen">
+          <Routes>
+            <Route path="/login" element={
+              <PublicRoute>
+                <LoginPage />
+              </PublicRoute>
+            } />
+            <Route path="/register" element={
+              <PublicRoute>
+                <RegisterPage />
+              </PublicRoute>
+            } />
+            
+            <Route path="/" element={
+              <ProtectedRoute>
+                <Header />
+                <main className="py-6">
+                  <FlightList />
+                </main>
+              </ProtectedRoute>
+            } />
+            
+            <Route path="/flights" element={
+              <ProtectedRoute>
+                <Header />
+                <main className="py-6">
+                  <FlightList />
+                </main>
+              </ProtectedRoute>
+            } />
+            
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                <Header />
+                <ProfilePage />
+              </ProtectedRoute>
+            } />
+            
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
     </AuthProvider>
   );
 }

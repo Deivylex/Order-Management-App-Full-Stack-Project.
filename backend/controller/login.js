@@ -11,7 +11,7 @@ loginRoute.post('/', async(req, res) => {
     if(!responseDb || !valPassword){
         return res.status(401).json({error: "invalid user"})
     }
-    res.status(200).json({email: responseDb.email, userId: responseDb.id})
+    res.status(200).json({email: responseDb.email, userId: responseDb.id, name: responseDb.name})
 })
 
 module.exports = loginRoute

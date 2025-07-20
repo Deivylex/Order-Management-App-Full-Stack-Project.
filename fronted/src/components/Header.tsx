@@ -1,14 +1,14 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { FiLogOut } from 'react-icons/fi';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-interface HeaderProps {
-  currentPage: 'flights' | 'profile';
-  onNavigate: (page: 'flights' | 'profile') => void;
-}
-
-const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
+const Header: React.FC = () => {
   const { logout, user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const isActive = (path: string) => location.pathname === path;
   return (
     <header className="bg-gray-900/95 backdrop-blur-sm shadow-xl border-b border-gray-700/50 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,9 +25,9 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
           </div>
           <nav className="flex items-center space-x-1">
             <button
-              onClick={() => onNavigate('flights')}
+              onClick={() => navigate('/flights')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                currentPage === 'flights' 
+                isActive('/flights') || isActive('/')
                   ? 'bg-slate-700 text-gray-100' 
                   : 'text-gray-300 hover:text-gray-100 hover:bg-slate-800'
               }`}
@@ -41,9 +41,9 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
               My Bookings
             </a>
             <button
-              onClick={() => onNavigate('profile')}
+              onClick={() => navigate('/profile')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                currentPage === 'profile'
+                isActive('/profile')
                   ? 'bg-slate-700 text-gray-100'
                   : 'text-gray-300 hover:text-gray-100 hover:bg-slate-800'
               }`}

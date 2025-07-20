@@ -17,6 +17,7 @@ userRoute.post('/', async(req, res) => {
     })
     const responseDb = await newUser.save()
     res.status(201).json(responseDb)
+    console.log("creado user: ", newUser.email)
 })
 
 module.exports = userRoute

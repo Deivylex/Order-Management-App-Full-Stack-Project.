@@ -1,12 +1,16 @@
 import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { FaGithub, FaMicrosoft } from 'react-icons/fa';
+import { FaGithub, FaApple } from 'react-icons/fa';
+import { useSocialAuth } from '../../hooks/useSocialAuth';
 
 interface SocialAuthProps {
   isLoading?: boolean;
 }
 
-const SocialAuth: React.FC<SocialAuthProps> = ({ isLoading = false }) => {
+const SocialAuth: React.FC<SocialAuthProps> = ({ isLoading: parentLoading = false }) => {
+  const { handleSocialAuth, isLoading: socialLoading, error } = useSocialAuth();
+  
+  const isDisabled = parentLoading || socialLoading;
   return (
     <div className="mt-6">
       <div className="relative">
@@ -18,12 +22,19 @@ const SocialAuth: React.FC<SocialAuthProps> = ({ isLoading = false }) => {
         </div>
       </div>
 
+      {error && (
+        <div className="mt-4 bg-red-900/50 border border-red-700 rounded-lg p-3">
+          <div className="text-red-300 text-sm">{error}</div>
+        </div>
+      )}
+
       <div className="mt-6 grid grid-cols-3 gap-3">
         <button
           type="button"
-          disabled={isLoading}
+          disabled={isDisabled}
+          onClick={() => handleSocialAuth('google')}
           className={`w-full inline-flex justify-center py-2 px-4 border border-gray-600 rounded-md shadow-sm bg-gray-800 text-sm font-medium text-gray-300 hover:bg-gray-700 transition ${
-            isLoading ? 'opacity-75 cursor-not-allowed' : ''
+            isDisabled ? 'opacity-75 cursor-not-allowed' : ''
           }`}
           aria-label="Sign in with Google"
         >
@@ -32,9 +43,10 @@ const SocialAuth: React.FC<SocialAuthProps> = ({ isLoading = false }) => {
         
         <button
           type="button"
-          disabled={isLoading}
+          disabled={isDisabled}
+          onClick={() => handleSocialAuth('github')}
           className={`w-full inline-flex justify-center py-2 px-4 border border-gray-600 rounded-md shadow-sm bg-gray-800 text-sm font-medium text-gray-300 hover:bg-gray-700 transition ${
-            isLoading ? 'opacity-75 cursor-not-allowed' : ''
+            isDisabled ? 'opacity-75 cursor-not-allowed' : ''
           }`}
           aria-label="Sign in with GitHub"
         >
@@ -43,13 +55,14 @@ const SocialAuth: React.FC<SocialAuthProps> = ({ isLoading = false }) => {
         
         <button
           type="button"
-          disabled={isLoading}
+          disabled={isDisabled}
+          onClick={() => handleSocialAuth('apple')}
           className={`w-full inline-flex justify-center py-2 px-4 border border-gray-600 rounded-md shadow-sm bg-gray-800 text-sm font-medium text-gray-300 hover:bg-gray-700 transition ${
-            isLoading ? 'opacity-75 cursor-not-allowed' : ''
+            isDisabled ? 'opacity-75 cursor-not-allowed' : ''
           }`}
-          aria-label="Sign in with Microsoft"
+          aria-label="Sign in with Apple"
         >
-          <FaMicrosoft className="h-5 w-5 text-blue-400" />
+          <FaApple className="h-5 w-5" />
         </button>
       </div>
     </div>

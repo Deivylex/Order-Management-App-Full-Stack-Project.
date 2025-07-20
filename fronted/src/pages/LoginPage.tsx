@@ -3,20 +3,20 @@ import AuthLayout from '../components/auth/AuthLayout';
 import LoginForm from '../components/auth/LoginForm';
 import SocialAuth from '../components/auth/SocialAuth';
 import { useAuth } from '../contexts/AuthContext';
+import { Link, useNavigate } from 'react-router-dom';
 
-interface LoginPageProps {
-  onSwitchToRegister?: () => void;
-}
-
-const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
+const LoginPage: React.FC = () => {
   const { login, isLoading } = useAuth();
   const [error, setError] = useState<string>('');
+  const navigate = useNavigate();
 
   const handleLogin = async (credentials: { email: string; password: string }) => {
     setError('');
     const success = await login(credentials);
     
-    if (!success) {
+    if (success) {
+      navigate('/'); // Redirect to home after successful login
+    } else {
       setError('Invalid credentials. Please try again.');
     }
   };
@@ -41,16 +41,15 @@ const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
       <div className="mt-6 text-center">
         <p className="text-sm text-gray-400">
           Don't have an account?{' '}
-          <button
-            onClick={onSwitchToRegister}
+          <Link
+            to="/register"
             className={`font-medium text-slate-300 hover:text-white transition-colors ${
               isLoading ? 'pointer-events-none opacity-75' : ''
             }`}
             aria-label="Register new account"
-            disabled={isLoading}
           >
             Sign up
-          </button>
+          </Link>
         </p>
       </div>
     </AuthLayout>

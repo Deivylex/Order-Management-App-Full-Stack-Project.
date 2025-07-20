@@ -11,6 +11,7 @@ interface AuthContextType {
   user: User | null;
   login: (credentials: { email: string; password: string }) => Promise<boolean>;
   register: (credentials: { name: string; email: string; password: string }) => Promise<boolean>;
+  setUser: (user: User) => void;
   logout: () => void;
   isLoading: boolean;
 }
@@ -33,14 +34,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(true);
     try {
       //SHOULD MAKE THE BACKEND CALL
-
+      const response = await axios.post('http://localhost:3000/api/login', credentials);
       // CURRENT CODE (SIMULATION) - TO REPLACE:
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      console.log("datos", response)
       const userData: User = {
-        id: '1',
-        email: credentials.email,
-        name: 'Demo User'
+        id: response.data.userId,
+        email: response.data.email,
+        name: response.data.name
       };
       
       setUser(userData);
@@ -81,20 +81,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
-    // MAKE A BACKEND CALL
-    
     setUser(null);
     localStorage.removeItem('user');
-    localStorage.removeItem('token'); // Also clean the token
+    localStorage.removeItem('token');
   };
 
-//VERIFY TOKEN WHEN LOADING THE APP
-// Recover user from localStorage on load
   React.useEffect(() => {
     const savedUser = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
     
-    if (savedUser && token) {      
+    if (savedUser) {      
       setUser(JSON.parse(savedUser));
     }
   }, []);
@@ -103,6 +98,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     user,
     login,
     register,
+    setUser,
     logout,
     isLoading
   };

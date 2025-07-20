@@ -30,7 +30,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-100">Welcome back</h1>
+        <h1 className="text-3xl font-bold text-gray-100">Lex</h1>
         <p className="text-gray-400 mt-2">Sign in to your account to continue</p>
       </div>
 

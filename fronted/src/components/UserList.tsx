@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 type User = {
-  id: number;
+  id: string;
   name: string;
   email: string;
-  phone?: string;
+  age?: string;
   address?: string;
-  company?: string;
+  country?: string;
   [key: string]: unknown;
 };
 
@@ -27,7 +27,7 @@ const UserList: React.FC = () => {
       const response = await axios.get('http://localhost:3000/test', {
         responseType: 'text'
       });
-
+      console.log("user: ", response)
       const lines = response.data.split('\n').filter((line: string) => line.trim());
       const allUsers: User[] = [];
 
@@ -115,14 +115,14 @@ const UserList: React.FC = () => {
                     <div className="text-sm text-gray-400">
                       📧 {user.email}
                     </div>
-                    {user.phone && (
+                    {user.age && (
                       <div className="text-sm text-gray-400">
-                        📞 {user.phone}
+                        📞 {user.age}
                       </div>
                     )}
-                    {user.company && (
+                    {user.country && (
                       <div className="text-sm text-gray-400">
-                        🏢 {user.company}
+                        🏢 {user.country}
                       </div>
                     )}
                   </div>
