@@ -18,12 +18,7 @@ mongoose.set('strictQuery',false)
 mongoose.connect(config.mongoUrl)
     .then(() => logger.info('MongoDB connected'))
     .catch(err => logger.error('MongoDB connection error:', err))
-app.use(cors({
-  origin: true,
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}))
+app.use(cors())
 app.use(middleware.requestLogs)
 
 app.use('/api/flights', appRoutes)
