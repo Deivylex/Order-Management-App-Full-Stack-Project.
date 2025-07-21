@@ -23,3 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 node_modules
+fake_users_20k.json
