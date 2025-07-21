@@ -41,7 +41,8 @@ export const useSocialAuth = () => {
         const userData = {
           id: response.data.id,
           email: response.data.email,
-          name: response.data.name
+          name: response.data.name,
+          role: response.data.role || 'user'
         };
         auth.setUser(userData);
         localStorage.setItem('user', JSON.stringify(userData));
