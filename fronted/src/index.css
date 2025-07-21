@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+/* Ensure proper viewport and touch handling for mobile */
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Improve touch targets for mobile */
+button, 
+a, 
+[role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
 /* Animated background for the application */
 body {
   margin: 0;

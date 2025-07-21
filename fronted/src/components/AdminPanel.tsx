@@ -148,11 +148,11 @@ const AdminPanel: React.FC = () => {
           <div className="bg-white shadow overflow-hidden sm:rounded-md">
             <ul className="divide-y divide-gray-200">
               {orders.map((order) => (
-                <li key={order.id} className="px-6 py-4">
-                  <div className="flex items-center justify-between">
+                <li key={order.id} className="px-4 sm:px-6 py-4">
+                  <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
                     <div className="flex-1">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-4">
+                      <div className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0">
                           <h3 className="text-lg font-semibold text-gray-900">
                             {order.customerName}
                           </h3>
@@ -197,14 +197,14 @@ const AdminPanel: React.FC = () => {
                         </div>
                       )}
 
-                      <div className="mt-4 flex items-center space-x-3">
+                      <div className="mt-4 flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-x-3 sm:space-y-0">
                         <div className="flex items-center space-x-2">
                           <label className="text-sm font-medium text-gray-700">Status:</label>
                           <select
                             value={order.status}
                             onChange={(e) => updateOrderStatus(order.id, e.target.value)}
                             disabled={statusUpdateLoading === order.id}
-                            className="text-sm border border-gray-300 rounded-md px-2 py-1 focus:ring-blue-500 focus:border-blue-500"
+                            className="text-sm border border-gray-300 rounded-md px-2 py-1 focus:ring-blue-500 focus:border-blue-500 min-w-0 flex-1 sm:flex-none"
                           >
                             <option value="pending">Pending</option>
                             <option value="ongoing">Ongoing</option>
@@ -218,7 +218,7 @@ const AdminPanel: React.FC = () => {
                         
                         <button
                           onClick={() => deleteOrder(order.id)}
-                          className="text-sm text-red-600 hover:text-red-800 font-medium"
+                          className="text-sm text-red-600 hover:text-red-800 font-medium px-3 py-1 border border-red-300 rounded-md hover:bg-red-50 transition-colors"
                         >
                           Delete Order
                         </button>
