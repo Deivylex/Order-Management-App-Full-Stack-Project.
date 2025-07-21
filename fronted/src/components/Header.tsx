@@ -19,7 +19,7 @@ const Header: React.FC = () => {
                 <span className="text-gray-200 font-bold text-lg">🌍</span>
               </div>
               <h1 className="text-xl font-bold text-gray-100">
-                Travel Booking
+                Booking System
               </h1>
             </div>
           </div>
@@ -32,14 +32,31 @@ const Header: React.FC = () => {
                   : 'text-gray-300 hover:text-gray-100 hover:bg-slate-800'
               }`}
             >
-              Flights
+              Setting
             </button>
-            <a 
-              href="#" 
-              className="text-gray-300 hover:text-gray-100 hover:bg-slate-800 px-4 py-2 rounded-lg text-sm font-medium transition-all"
+            <button
+              onClick={() => navigate('/my-bookings')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                isActive('/my-bookings')
+                  ? 'bg-slate-700 text-gray-100'
+                  : 'text-gray-300 hover:text-gray-100 hover:bg-slate-800'
+              }`}
             >
               My Bookings
-            </a>
+            </button>
+            
+            {user?.role === 'admin' && (
+              <button
+                onClick={() => navigate('/admin')}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  isActive('/admin')
+                    ? 'bg-slate-700 text-gray-100'
+                    : 'text-gray-300 hover:text-gray-100 hover:bg-slate-800'
+                }`}
+              >
+                Admin Panel
+              </button>
+            )}
             <button
               onClick={() => navigate('/profile')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${

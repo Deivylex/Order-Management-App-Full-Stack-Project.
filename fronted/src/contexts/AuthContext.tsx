@@ -8,6 +8,7 @@ interface User {
   id: string;
   email: string;
   name: string;
+  role: string;
 }
 
 interface AuthContextType {
@@ -16,6 +17,7 @@ interface AuthContextType {
   register: (credentials: { name: string; email: string; password: string }) => Promise<boolean>;
   setUser: (user: User) => void;
   logout: () => void;
+  deleteAccount: () => Promise<boolean>;
   isLoading: boolean;
 }
 
@@ -40,7 +42,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const userData: User = {
         id: response.data.userId,
         email: response.data.email,
-        name: response.data.name
+        name: response.data.name,
+        role: response.data.role || 'user'
       };     
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
@@ -58,12 +61,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(true);
     try {
       const response = await api.post(api_user, credentials);
-      console.log(response);
       
       const userData: User = {
         id: response.data.id,
         email: response.data.email,
-        name: response.data.name
+        name: response.data.name,
+        role: response.data.role || 'user'
       };
       
       setUser(userData);
@@ -84,6 +87,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem('token');
   };
 
+  const deleteAccount = async (): Promise<boolean> => {
+    if (!user) return false;
+    
+    try {
+      setIsLoading(true);
+      await api.delete(`/api/users/${user.id}`);
+      
+      setUser(null);
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      
+      return true;
+    } catch (error) {
+      console.error('Delete account failed:', error);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   React.useEffect(() => {
     const savedUser = localStorage.getItem('user');
     const savedToken = localStorage.getItem('token');
@@ -102,6 +125,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     register,
     setUser,
     logout,
+    deleteAccount,
     isLoading
   };
 

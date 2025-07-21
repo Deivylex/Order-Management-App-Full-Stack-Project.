@@ -3,10 +3,11 @@ import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
 import Header from './components/Header';
-import FlightList from './components/FlightList';
 import ProfilePage from './pages/ProfilePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import MyBookingsPage from './pages/MyBookingsPage';
+import AdminPanel from './components/AdminPanel';
 
 function App() {
   return (
@@ -43,6 +44,20 @@ function App() {
               <ProtectedRoute>
                 <Header />
                 <ProfilePage />
+              </ProtectedRoute>
+            } />
+            
+            <Route path="/my-bookings" element={
+              <ProtectedRoute>
+                <Header />
+                <MyBookingsPage />
+              </ProtectedRoute>
+            } />
+            
+            <Route path="/admin" element={
+              <ProtectedRoute>
+                <Header />
+                <AdminPanel />
               </ProtectedRoute>
             } />
             

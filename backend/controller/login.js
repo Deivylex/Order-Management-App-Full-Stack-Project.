@@ -29,7 +29,13 @@ loginRoute.post('/', async(req, res) => {
         id: responseDb.id
     }
     const token = jwt.sign(userToken, process.env.JWT_SECRET)
-    res.status(200).json({email: responseDb.email, userId: responseDb.id, name: responseDb.name, token: token})
+    res.status(200).json({
+        email: responseDb.email, 
+        userId: responseDb.id, 
+        name: responseDb.name, 
+        role: responseDb.role,
+        token: token
+    })
 })
 
 loginRoute.post('/auth', middleware.antiSpamMiddleware, async(req, res) => {
@@ -46,14 +52,14 @@ loginRoute.post('/auth', middleware.antiSpamMiddleware, async(req, res) => {
             email: existingUser.email,
             name: existingUser.name,
             id: existingUser.id,
+            role: existingUser.role,
             token: token
-
         }
         return res.status(200).json(userData)
     }
     const saltRounds = 10
     const password = await bcrypt.hash(generatePassword(),saltRounds)
-    const newUser = new User({
+    const newUser = new user({
         email: body.email,
         name: body.name,
         passwordhash: password
@@ -68,8 +74,8 @@ loginRoute.post('/auth', middleware.antiSpamMiddleware, async(req, res) => {
         email: responseDb.email,
         name: responseDb.name,
         id: responseDb.id,
+        role: responseDb.role,
         token: token
-
     }
     res.status(201).json(userData)
 })

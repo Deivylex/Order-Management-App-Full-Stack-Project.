@@ -20,5 +20,16 @@ userRoute.post('/', middleware.antiSpamMiddleware, async(req, res) => {
     console.log("creado user: ", newUser.email)
 })
 
+userRoute.delete('/:id', middleware.userExtractor, async(req, res) => {
+    const user =  await User.findById(req.params.id)
+    if (!user){
+        return res.status(404).end()
+    }
+    if (req.user._id.toString()  !== user._id.toString()) {
+        return res.status(401).json({ error: 'unauthorized user' })
+    }
+    await User.findByIdAndDelete(req.params.id)
+    res.status(204).end()
+})
 
 module.exports = userRoute

@@ -21,6 +21,9 @@ const userSchema = mongoose.Schema({
     passwordhash: {
         type: String,
     },
+    role: {
+        type: String, default: 'user'
+    }
 })
 
 userSchema.set('toJSON', {
