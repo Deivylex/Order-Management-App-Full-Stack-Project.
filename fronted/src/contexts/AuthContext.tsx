@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useState } from 'react';
-import axios from 'axios'
+import api from '../services/api';
+
+const api_login = import.meta.env.VITE_API_LOGIN
+const api_user = import.meta.env.VITE_API_USER
 
 interface User {
   id: string;
@@ -33,18 +36,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (credentials: { email: string; password: string }): Promise<boolean> => {
     setIsLoading(true);
     try {
-      //SHOULD MAKE THE BACKEND CALL
-      const response = await axios.post('http://localhost:3000/api/login', credentials);
-      // CURRENT CODE (SIMULATION) - TO REPLACE:
-      console.log("datos", response)
+      const response = await api.post(api_login, credentials);
       const userData: User = {
         id: response.data.userId,
         email: response.data.email,
         name: response.data.name
-      };
-      
+      };     
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem('token', response.data.token);
       return true;
     } catch (error) {
       console.error('Login failed:', error);
@@ -57,11 +57,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const register = async (credentials: { name: string; email: string; password: string }): Promise<boolean> => {
     setIsLoading(true);
     try {
-      //SHOULD MAKE THE BACKEND CALL
-      const response = await axios.post('http://localhost:3000/api/users', credentials);
+      const response = await api.post(api_user, credentials);
       console.log(response);
-      // CURRENT CODE (SIMULATION) - TO REPLACE:
-      //await new Promise(resolve => setTimeout(resolve, 1500));
       
       const userData: User = {
         id: response.data.id,
@@ -71,6 +68,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem('token', response.data.token);
       return true;
     } catch (error) {
       console.error('Registration failed:', error);
@@ -88,9 +86,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   React.useEffect(() => {
     const savedUser = localStorage.getItem('user');
+    const savedToken = localStorage.getItem('token');
     
-    if (savedUser) {      
+    if (savedUser && savedToken) {
       setUser(JSON.parse(savedUser));
+    } else {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
     }
   }, []);
 

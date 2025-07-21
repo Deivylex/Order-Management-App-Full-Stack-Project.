@@ -3,6 +3,7 @@ const axios = require('axios')
 const logger = require('../utils/logger')
 const path = require('path')
 const fs = require('fs')
+const middleware = require('../utils/middleware')
 
 appRoutes.get('/', async(req, res) => {
 
@@ -48,7 +49,8 @@ appRoutes.get('/', async(req, res) => {
         
 })
 
-appRoutes.get('/test', async (req, res) => {
+appRoutes.get('/test', middleware.userExtractor, async (req, res) => {
+
     const filePath = path.join(__dirname, '../../fake_users_20k.json')
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'))
 

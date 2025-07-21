@@ -19,7 +19,7 @@ const Header: React.FC = () => {
                 <span className="text-gray-200 font-bold text-lg">🌍</span>
               </div>
               <h1 className="text-xl font-bold text-gray-100">
-                Flight Booking
+                Travel Booking
               </h1>
             </div>
           </div>

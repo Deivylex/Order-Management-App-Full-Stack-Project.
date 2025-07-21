@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 
 type User = {
   id: string;
@@ -24,10 +24,9 @@ const UserList: React.FC = () => {
     setTotalLoaded(0);
 
     try {
-      const response = await axios.get('http://localhost:3000/test', {
+      const response = await api.get('/test', {
         responseType: 'text'
       });
-      console.log("user: ", response)
       const lines = response.data.split('\n').filter((line: string) => line.trim());
       const allUsers: User[] = [];
 
@@ -42,7 +41,6 @@ const UserList: React.FC = () => {
       }
 
       setUsers(allUsers);
-      console.log(`Total users loaded: ${allUsers.length}`);
     } catch (err) {
       setError(`Failed to fetch users: ${(err as Error).message}`);
       console.error('Error fetching users:', err);

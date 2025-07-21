@@ -22,16 +22,6 @@ const ProfilePage: React.FC = () => {
           </div>
         </div>
 
-        {/* Test Section */}
-        <div className="mb-6 bg-gray-800 border border-gray-700 rounded-lg p-6">
-          <h2 className="text-xl font-semibold text-gray-100 mb-2">
-            🧪 Development Tests
-          </h2>
-          <p className="text-gray-400 text-sm mb-4">
-            This section contains development tools and test features
-          </p>
-        </div>
-
         {/* User List Component */}
         <UserList />
       </div>

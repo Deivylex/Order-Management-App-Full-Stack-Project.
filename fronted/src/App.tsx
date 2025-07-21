@@ -29,7 +29,6 @@ function App() {
               <ProtectedRoute>
                 <Header />
                 <main className="py-6">
-                  <FlightList />
                 </main>
               </ProtectedRoute>
             } />
@@ -37,9 +36,6 @@ function App() {
             <Route path="/flights" element={
               <ProtectedRoute>
                 <Header />
-                <main className="py-6">
-                  <FlightList />
-                </main>
               </ProtectedRoute>
             } />
             

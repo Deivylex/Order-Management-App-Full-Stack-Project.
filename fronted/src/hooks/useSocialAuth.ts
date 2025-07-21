@@ -4,7 +4,8 @@ import { githubAuthService } from '../services/githubAuth';
 import { appleAuthService } from '../services/appleAuth';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-
+import api from '../services/api';
+const api_auth = import.meta.env.VITE_API_AUTH
 
 export const useSocialAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,15 +33,19 @@ export const useSocialAuth = () => {
       }
 
       if (result.success && result.user) {
+        const credentials = {
+            name: result.user.name,
+            email: result.user.email,
+        }
+        const response = await api.post(api_auth, credentials)
         const userData = {
-          id: result.user.id,
-          email: result.user.email,
-          name: result.user.name
+          id: response.data.id,
+          email: response.data.email,
+          name: response.data.name
         };
-        
-        // Update AuthContext and localStorage
         auth.setUser(userData);
         localStorage.setItem('user', JSON.stringify(userData));
+        localStorage.setItem('token', response.data.token);
         
         navigate('/');
         return true;

@@ -15,7 +15,7 @@ const LoginPage: React.FC = () => {
     const success = await login(credentials);
     
     if (success) {
-      navigate('/'); // Redirect to home after successful login
+      navigate('/');
     } else {
       setError('Invalid credentials. Please try again.');
     }
