@@ -21,20 +21,23 @@ mongoose.connect(config.mongoUrl)
 app.use(cors())
 app.use(middleware.requestLogs)
 
-app.use('/api/flights', appRoutes)
+app.use('/api', appRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/login', loginRoute)
 app.use('/api/order', orderRoute)
 
-app.use(express.static(path.join(__dirname, 'dist')))
+if (!config.isDevelopment) {
+  logger.info('Producction mode')
+  app.use(express.static(path.join(__dirname, 'dist')))
 
-app.get('*', (req, res) => {
-  if (!req.path.startsWith('/api')) {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'))
-  } else {
-    res.status(404).json({ error: 'API endpoint not found' })
-  }
-})
+  app.get('*', (req, res) => {
+    if (!req.path.startsWith('/api')) {
+      res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+    }
+  })
+}else {
+    logger.info('Dev mode')
+}
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

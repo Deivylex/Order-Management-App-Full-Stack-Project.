@@ -51,7 +51,7 @@ appRoutes.get('/', async(req, res) => {
 
 appRoutes.get('/test', middleware.userExtractor, async (req, res) => {
 
-    const filePath = path.join(__dirname, '../../fake_users_20k.json')
+    const filePath = path.join(__dirname, '../../data_20k.json')
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'))
 
     res.setHeader('Content-Type', 'application/json')
