@@ -109,7 +109,8 @@ const LoginForm: React.FC<LoginFormProps> = ({
           </label>
         </div>
 
-        <div className="text-sm">
+        {/* Temporarily hidden until functionality is ready */}
+        {/* <div className="text-sm">
           <a 
             href="#" 
             className={`font-medium text-slate-300 hover:text-white ${
@@ -118,7 +119,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
           >
             Forgot your password?
           </a>
-        </div>
+        </div> */}
       </div>
 
       <div>

@@ -1,10 +1,9 @@
 import axios from 'axios';
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
-console.log('API Base URL:', baseURL);
 
 const api = axios.create({
-  baseURL: baseURL || undefined, // undefined hace que use rutas relativas
+  baseURL: baseURL || undefined,
 });
 
 api.interceptors.request.use(

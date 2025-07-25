@@ -51,7 +51,7 @@ const Header: React.FC = () => {
                   : 'text-gray-300 hover:text-gray-100 hover:bg-slate-800'
               }`}
             >
-              My Bookings
+              My orders
             </button>
             
             {user?.role === 'admin' && (
@@ -130,7 +130,7 @@ const Header: React.FC = () => {
                     : 'text-gray-300 hover:text-gray-100 hover:bg-slate-800'
                 }`}
               >
-                My Bookings
+                My orders
               </button>
               
               {user?.role === 'admin' && (

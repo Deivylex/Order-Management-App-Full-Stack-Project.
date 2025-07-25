@@ -1,6 +1,6 @@
 import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { FaGithub, FaApple } from 'react-icons/fa';
+// import { FaGithub, FaApple } from 'react-icons/fa'; // Temporarily disabled
 import { useSocialAuth } from '../../hooks/useSocialAuth';
 
 interface SocialAuthProps {
@@ -28,7 +28,23 @@ const SocialAuth: React.FC<SocialAuthProps> = ({ isLoading: parentLoading = fals
         </div>
       )}
 
-      <div className="mt-6 grid grid-cols-3 gap-3">
+      <div className="mt-6 flex justify-center">
+        <button
+          type="button"
+          disabled={isDisabled}
+          onClick={() => handleSocialAuth('google')}
+          className={`inline-flex items-center justify-center py-3 px-6 border border-gray-600 rounded-lg shadow-sm bg-gray-800 text-sm font-medium text-gray-300 hover:bg-gray-700 transition space-x-2 ${
+            isDisabled ? 'opacity-75 cursor-not-allowed' : ''
+          }`}
+          aria-label="Sign in with Google"
+        >
+          <FcGoogle className="h-5 w-5" />
+          <span>Continue with Google</span>
+        </button>
+      </div>
+      
+      {/* Temporarily hidden until functionality is ready */}
+      {/* <div className="mt-6 grid grid-cols-3 gap-3">
         <button
           type="button"
           disabled={isDisabled}
@@ -64,7 +80,7 @@ const SocialAuth: React.FC<SocialAuthProps> = ({ isLoading: parentLoading = fals
         >
           <FaApple className="h-5 w-5" />
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
