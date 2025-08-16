@@ -30,7 +30,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-100">Lex</h1>
+        <h1 className="text-3xl font-bold text-gray-100">Lex Tortillería 🌮</h1>
         <p className="text-gray-400 mt-2">Sign in to your account to continue</p>
       </div>
 
@@ -93,33 +93,6 @@ const LoginForm: React.FC<LoginFormProps> = ({
             </button>
           </div>
         </div>
-      </div>
-
-      <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <input
-            id="remember-me"
-            name="remember-me"
-            type="checkbox"
-            className="h-4 w-4 text-slate-600 focus:ring-slate-500 border-gray-600 bg-gray-800 rounded"
-            disabled={isLoading}
-          />
-          <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
-            Remember me
-          </label>
-        </div>
-
-        {/* Temporarily hidden until functionality is ready */}
-        {/* <div className="text-sm">
-          <a 
-            href="#" 
-            className={`font-medium text-slate-300 hover:text-white ${
-              isLoading ? 'pointer-events-none opacity-75' : ''
-            }`}
-          >
-            Forgot your password?
-          </a>
-        </div> */}
       </div>
 
       <div>

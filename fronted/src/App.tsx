@@ -7,6 +7,7 @@ import ProfilePage from './pages/ProfilePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import MyBookingsPage from './pages/MyBookingsPage';
+import SettingsPage from './pages/SettingsPage';
 import AdminPanel from './components/AdminPanel';
 
 function App() {
@@ -34,9 +35,10 @@ function App() {
               </ProtectedRoute>
             } />
             
-            <Route path="/flights" element={
+            <Route path="/settings" element={
               <ProtectedRoute>
                 <Header />
+                <SettingsPage />
               </ProtectedRoute>
             } />
             
@@ -47,21 +49,22 @@ function App() {
               </ProtectedRoute>
             } />
             
-            <Route path="/my-bookings" element={
-              <ProtectedRoute>
-                <Header />
-                <MyBookingsPage />
-              </ProtectedRoute>
-            } />
-            
-            <Route path="/admin" element={
+        <Route 
+          path="/my-bookings" 
+          element={
+            <ProtectedRoute>
+              <Header />
+              <MyBookingsPage />
+            </ProtectedRoute>
+          } 
+        />            <Route path="/admin" element={
               <ProtectedRoute>
                 <Header />
                 <AdminPanel />
               </ProtectedRoute>
             } />
             
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<Navigate to="/my-bookings" replace />} />
           </Routes>
         </div>
       </BrowserRouter>

@@ -7,13 +7,13 @@ const ProfilePage: React.FC = () => {
   const { user } = useAuth();
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800">
       <div className="max-w-6xl mx-auto px-4 py-6">
         {/* Profile Header */}
-        <div className="mb-8 bg-gray-800 border border-gray-700 rounded-lg p-6">
+        <div className="mb-8 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-xl p-6 shadow-xl">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-slate-700 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-slate-600 to-slate-700 rounded-full flex items-center justify-center shadow-lg">
                 <span className="text-2xl">👤</span>
               </div>
               <div>

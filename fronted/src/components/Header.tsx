@@ -23,26 +23,28 @@ const Header: React.FC = () => {
           <div className="flex items-center">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-slate-700 rounded-lg flex items-center justify-center">
-                <span className="text-gray-200 font-bold text-lg">🌍</span>
+                <span className="text-gray-200 font-bold text-lg">🌮</span>
               </div>
               <h1 className="text-xl font-bold text-gray-100">
-                Booking System
+                Lex Tortillería
               </h1>
             </div>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1">
-            <button
-              onClick={() => navigate('/flights')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                isActive('/flights') || isActive('/')
-                  ? 'bg-slate-700 text-gray-100' 
-                  : 'text-gray-300 hover:text-gray-100 hover:bg-slate-800'
-              }`}
-            >
-              Setting
-            </button>
+            {user?.role === 'admin' && (
+              <button
+                onClick={() => navigate('/settings')}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  isActive('/settings')
+                    ? 'bg-slate-700 text-gray-100' 
+                    : 'text-gray-300 hover:text-gray-100 hover:bg-slate-800'
+                }`}
+              >
+                Settings
+              </button>
+            )}
             <button
               onClick={() => navigate('/my-bookings')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
@@ -112,16 +114,18 @@ const Header: React.FC = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-700/50">
             <div className="flex flex-col space-y-2">
-              <button
-                onClick={() => handleNavigate('/flights')}
-                className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors text-left ${
-                  isActive('/flights') || isActive('/')
-                    ? 'bg-slate-700 text-gray-100' 
-                    : 'text-gray-300 hover:text-gray-100 hover:bg-slate-800'
-                }`}
-              >
-                Setting
-              </button>
+              {user?.role === 'admin' && (
+                <button
+                  onClick={() => handleNavigate('/settings')}
+                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors text-left ${
+                    isActive('/settings')
+                      ? 'bg-slate-700 text-gray-100' 
+                      : 'text-gray-300 hover:text-gray-100 hover:bg-slate-800'
+                  }`}
+                >
+                  Settings
+                </button>
+              )}
               <button
                 onClick={() => handleNavigate('/my-bookings')}
                 className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors text-left ${

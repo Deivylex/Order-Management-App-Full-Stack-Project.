@@ -55,7 +55,7 @@ const OrderList: React.FC = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="flex items-center justify-center bg-gray-50 py-12">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Access Required</h2>
           <p className="text-gray-600">You must log in to view your orders</p>
@@ -66,7 +66,7 @@ const OrderList: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="flex items-center justify-center bg-gray-50 py-12">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading orders...</p>
@@ -77,7 +77,7 @@ const OrderList: React.FC = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="flex items-center justify-center bg-gray-50 py-12">
         <div className="text-center">
           <div className="text-red-600 text-xl mb-4">⚠️</div>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Error</h2>
@@ -88,10 +88,9 @@ const OrderList: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">My Product Orders</h1>
           <p className="mt-2 text-gray-600">History of all your orders</p>
         </div>
 
@@ -99,7 +98,6 @@ const OrderList: React.FC = () => {
           <div className="text-center py-12">
             <div className="text-gray-400 text-6xl mb-4">📋</div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">No orders found</h3>
-            <p className="text-gray-600">You haven't created any product orders yet.</p>
           </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

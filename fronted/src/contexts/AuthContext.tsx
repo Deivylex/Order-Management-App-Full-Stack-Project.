@@ -18,6 +18,8 @@ interface AuthContextType {
   setUser: (user: User) => void;
   logout: () => void;
   deleteAccount: () => Promise<boolean>;
+  quickLoginAdmin: () => Promise<boolean>;
+  quickLoginGuest: () => Promise<boolean>;
   isLoading: boolean;
 }
 
@@ -107,6 +109,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const quickLoginAdmin = async (): Promise<boolean> => {
+    return await login({ email: 'admin', password: 'admin' });
+  };
+
+  const quickLoginGuest = async (): Promise<boolean> => {
+    return await login({ email: 'guest', password: 'guest' });
+  };
+
   React.useEffect(() => {
     const savedUser = localStorage.getItem('user');
     const savedToken = localStorage.getItem('token');
@@ -126,6 +136,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser,
     logout,
     deleteAccount,
+    quickLoginAdmin,
+    quickLoginGuest,
     isLoading
   };
 

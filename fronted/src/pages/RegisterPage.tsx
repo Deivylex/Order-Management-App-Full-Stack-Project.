@@ -44,12 +44,6 @@ const RegisterPage: React.FC = () => {
 
   return (
     <AuthLayout>
-      <div className="mb-8 flex justify-center">
-        <div className="bg-slate-700 border-2 border-slate-600 rounded-xl w-16 h-16 flex items-center justify-center">
-          <span className="text-2xl font-bold text-gray-200">🌍</span>
-        </div>
-      </div>
-      
       {error && (
         <div className="mb-6 bg-red-900/50 border border-red-700 rounded-lg p-4">
           <div className="text-red-300 text-sm">{error}</div>
