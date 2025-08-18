@@ -63,13 +63,6 @@ A modern full-stack web application designed for managing tortilla and nacho ord
 - ✅ Reusable components with Tailwind CSS
 - ✅ **Dark theme with professional styling**
 
-### 🎨 UI/UX Enhancements
-- ✅ **"Lex Tortillería" branding** with taco emoji
-- ✅ Professional slate/gray color palette
-- ✅ Gradient backgrounds and modern card designs
-- ✅ Consistent iconography and typography
-- ✅ Smooth transitions and hover effects
-
 ## 🔧 Installation & Setup
 
 ### Prerequisites
