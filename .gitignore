@@ -13,6 +13,9 @@ dist-ssr
 *.local
 .env
 .env.production
+.env.local
+.env.development
+.env.staging
 
 # Editor directories and files
 .vscode/*
@@ -26,3 +29,16 @@ dist-ssr
 *.sw?
 node_modules
 fake_users_20k.json
+
+# Testing específico
+test-logs/
+test-temp/
+*.test.env
+TESTING.md
+docs
+
+# Archivos .env específicos del proyecto - TODOS LOS ENTORNOS
+backend/.env*
+fronted/.env*
+!backend/.env.example
+!fronted/.env.example

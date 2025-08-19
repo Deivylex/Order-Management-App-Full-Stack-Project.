@@ -1,0 +1,151 @@
+name: Pull Request Tests
+
+# Ejecutar en todos los PRs hacia main
+on:
+  pull_request:
+    branches: [ main ]
+    types: [opened, synchronize, reopened]
+
+# Variables de entorno globales para testing
+env:
+  NODE_ENV: test
+  CI: true
+
+jobs:
+  test-build-and-start:
+    name: Test Build & Start Commands
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔧 Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        
+    - name: 📦 Install root dependencies
+      run: npm install
+      
+    - name: 🏗️ Install backend dependencies
+      run: cd backend && npm install
+      
+    - name: 🎨 Install frontend dependencies  
+      run: cd fronted && npm install
+      
+    - name: 🔐 Setup test environment variables
+      run: |
+        # Crear archivos .env de prueba para backend
+        cat > backend/.env << EOF
+        MONGODB_URI=mongodb://localhost:27017/test_tortilleria
+        JWT_SECRET=test_jwt_secret_for_ci_testing_only
+        PORT=3001
+        NODE_ENV=test
+        GOOGLE_CLIENT_ID=test_google_client_id
+        EOF
+        
+        # Crear archivos .env de prueba para frontend
+        cat > fronted/.env << EOF
+        VITE_API_LOGIN=http://localhost:3001/api/login
+        VITE_API_USER=http://localhost:3001/api/users
+        VITE_API_AUTH=http://localhost:3001/api/login/auth
+        VITE_GOOGLE_CLIENT_ID=test_google_client_id_for_frontend
+        EOF
+        
+    - name: 🧪 Run build tests
+      run: npm run test:build
+      
+    - name: 🚀 Run start tests
+      run: npm run test:start
+      
+    - name: 🔍 Run linting (frontend)
+      run: cd fronted && npm run lint
+      
+    - name: 📊 Upload test artifacts
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-logs-${{ matrix.node-version }}
+        path: |
+          test-logs/
+          backend/logs/
+          fronted/dist/
+        retention-days: 7
+
+  test-security-and-quality:
+    name: Security & Quality Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔧 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.x
+        cache: 'npm'
+        
+    - name: 📦 Install dependencies
+      run: |
+        npm install
+        cd backend && npm install
+        cd ../fronted && npm install
+        
+    - name: 🔒 Run security audit
+      run: |
+        cd backend && npm audit --audit-level=moderate
+        cd ../fronted && npm audit --audit-level=moderate
+        
+    - name: 🧹 Check for sensitive data
+      run: |
+        # Verificar que no hay archivos .env en el commit
+        if find . -name ".env*" -not -path "./node_modules/*" -not -path "./.git/*" | grep -v ".env.example"; then
+          echo "❌ ERROR: .env files found in repository!"
+          exit 1
+        else
+          echo "✅ No .env files found in repository"
+        fi
+        
+        # Verificar que no hay secretos hardcodeados
+        if grep -r "mongodb+srv://" --include="*.js" --include="*.ts" --include="*.json" . || \
+           grep -r "jwt_secret" --include="*.js" --include="*.ts" --include="*.json" .; then
+          echo "❌ ERROR: Potential secrets found in code!"
+          exit 1
+        else
+          echo "✅ No hardcoded secrets detected"
+        fi
+
+  test-compatibility:
+    name: Cross-Platform Compatibility
+    runs-on: ${{ matrix.os }}
+    
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [18.x, 20.x]
+        
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔧 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        
+    - name: 📦 Install dependencies
+      run: |
+        npm install
+        cd backend && npm install
+        cd ../fronted && npm install
+        
+    - name: 🏗️ Test build compatibility
+      run: npm run test:build:compatibility

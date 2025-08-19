@@ -16,7 +16,13 @@
     "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix fronted\"",
     "frontend": "cd fronted && npm run dev",
     "backend": "cd backend && npm run dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run test:build && npm run test:start",
+    "test:build": "./scripts/test-build-start.sh",
+    "test:start": "./scripts/test-start.sh", 
+    "test:build:compatibility": "./scripts/test-build-compatibility.sh",
+    "test:ci": "npm run test:build && npm run test:start",
+    "install:all": "npm install && cd backend && npm install && cd ../fronted && npm install && cd ..",
+    "setup": "./scripts/setup.sh"
   },
   "devDependencies": {
     "concurrently": "^9.2.0"
