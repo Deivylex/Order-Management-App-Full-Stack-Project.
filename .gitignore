@@ -24,5 +24,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-node_modules
-fake_users_20k.json
+
+#tem
+.github
+test

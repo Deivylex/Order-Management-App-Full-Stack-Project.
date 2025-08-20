@@ -1,6 +1,7 @@
 const logger = require('./logger')
 const jwt = require('jsonwebtoken')
 const users = require('../models/user')
+const path = require('path')
 
 const requestLogs = (request, response, next) => {
   logger.error('------------------------------')
@@ -11,7 +12,20 @@ const requestLogs = (request, response, next) => {
   next()
 }
 
-const antiSpamMiddleware = (req, res, next) => {
+const browserRedirectHandler = (req, res, next) => {
+    const acceptHeader = req.get('Accept') || ''
+    const userAgent = req.get('User-Agent') || ''
+    const isBrowserNavigation = (
+      acceptHeader.includes('text/html') && 
+      !acceptHeader.includes('application/json') &&
+      userAgent.includes('Mozilla')
+    )    
+    if (isBrowserNavigation) {
+      return res.sendFile(path.join(__dirname, '../dist', 'index.html'))
+    }
+    next()
+}
+/*const antiSpamMiddleware = (req, res, next) => {
   const userAgent = req.get('User-Agent');
   const ip = req.ip;
   
@@ -25,7 +39,7 @@ const antiSpamMiddleware = (req, res, next) => {
   }
   
   next();
-};
+};*/
 
 const userExtractor = async (req, res, next) => {
   const authorization = req.get('authorization')
@@ -62,4 +76,4 @@ const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
 
-module.exports = {requestLogs, errorHandler, unknownEndpoint, userExtractor, antiSpamMiddleware}
+module.exports = {requestLogs, errorHandler, unknownEndpoint, userExtractor, browserRedirectHandler}

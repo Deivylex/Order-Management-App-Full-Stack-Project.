@@ -12,15 +12,21 @@ const loginRoute = require('./controller/login')
 const orderRoute = require('./controller/order')
 
 const app = express()
-app.use(express.json())
+
 logger.info(`Connecting to MongoDB url ${config.mongoUrl}...`)
 mongoose.set('strictQuery',false)
 mongoose.connect(config.mongoUrl)
     .then(() => logger.info('MongoDB connected'))
     .catch(err => logger.error('MongoDB connection error:', err))
-app.use(cors())
-app.use(middleware.requestLogs)
 
+if (process.env.NODE_ENV === 'development') {
+  app.use(cors())
+}
+app.use(express.json())
+app.use(middleware.requestLogs)
+if (!config.isDevelopment) {
+  app.use('/api/*', middleware.browserRedirectHandler)
+}
 app.use('/api', appRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/login', loginRoute)
@@ -31,14 +37,11 @@ if (!config.isDevelopment) {
   app.use(express.static(path.join(__dirname, 'dist')))
 
   app.get('*', (req, res) => {
-    if (!req.path.startsWith('/api')) {
-      res.sendFile(path.join(__dirname, 'dist', 'index.html'))
-    }
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'))
   })
 }else {
     logger.info('Dev mode')
 }
-
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 
