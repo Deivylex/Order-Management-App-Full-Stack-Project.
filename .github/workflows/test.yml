@@ -1,4 +1,4 @@
-name: Mi Workflow
+name: Workflow
 
 on:
   push:
@@ -18,41 +18,41 @@ jobs:
       FRONTEND_API_AUTH: ${{ secrets.FRONTEND_API_AUTH }}
 
     steps:
-      - name: Clonar repositorio
+      - name: Clone repository
         uses: actions/checkout@v3
 
-      - name: Crear archivo .env para backend
+      - name: Create backend .env file
         run: |
           echo "PORT=${BACKEND_PORT}" > backend/.env
           echo "MONGODB_URI=${BACKEND_MONGODB_URI}" >> backend/.env
           echo "JWT_SECRET=${BACKEND_JWT_SECRET}" >> backend/.env
 
-      - name: Crear archivo .env para frontend
+      - name: Create frontend .env file
         run: |
           echo "VITE_GOOGLE_CLIENT_ID=${FRONTEND_GOOGLE_CLIENT_ID}" > frontend/.env
           echo "VITE_API_LOGIN=${FRONTEND_API_LOGIN}" >> frontend/.env
           echo "VITE_API_USER=${FRONTEND_API_USER}" >> frontend/.env
           echo "VITE_API_AUTH=${FRONTEND_API_AUTH}" >> frontend/.env
 
-      - name: Instalar dependencias root
+      - name: Install root dependencies
         run:
           npm install
-      - name: Instalar dependencias backend
+      - name: Install backend dependencies
         run: |
           cd backend
           npm install
 
-      - name: Instalar dependencias frontend y compilar
+      - name: Install frontend dependencies and build
         run: |
           cd frontend
           npm install
           npm run build
 
-      - name: Copiar build al backend
+      - name: Copy build to backend
         run: |
           rm -rf backend/dist
           cp -r frontend/dist backend/
 
-      - name: Ejecutar pruebas backend
+      - name: Run backend tests
         run: |
           npm test
