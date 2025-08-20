@@ -46,7 +46,7 @@ const ClientList: React.FC = () => {
       const response = await api.get(`/api/test?page=${page}&limit=10`);
       const { clients: newClients, pagination: paginationInfo } = response.data;
       
-      // Asignar IDs únicos si no vienen del servidor
+      // Assign unique IDs if they don't come from the server
       const clientsWithIds = newClients.map((client: Omit<Client, 'id'>, index: number) => ({
         ...client,
         id: client.id || `client_${page}_${index}_${Date.now()}`
@@ -75,7 +75,7 @@ const ClientList: React.FC = () => {
     }
   }, [pagination, currentPage, loadingMore]);
 
-  // Configurar IntersectionObserver para scroll infinito
+  // Configure IntersectionObserver for infinite scroll
   useEffect(() => {
     if (observerRef.current) {
       observerRef.current.disconnect();
@@ -105,7 +105,7 @@ const ClientList: React.FC = () => {
     fetchClients(1, true);
   };
 
-  // Solo mostrar para usuarios admin
+  // Only show for admin users
   if (!user || user.role !== 'admin') {
     return null;
   }
@@ -194,7 +194,7 @@ const ClientList: React.FC = () => {
                 key={client.id}
                 className="relative bg-gradient-to-br from-gray-700 to-gray-800 border border-gray-600 rounded-xl p-6 hover:from-gray-650 hover:to-gray-750 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
-                {/* Header con nombre y empresa */}
+                {/* Header with name and company */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-gradient-to-br from-slate-600 to-slate-700 rounded-full flex items-center justify-center shadow-lg">
@@ -217,7 +217,7 @@ const ClientList: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Información de contacto */}
+                {/* Contact information */}
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Email */}
@@ -247,7 +247,7 @@ const ClientList: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Dirección */}
+                  {/* Address */}
                   <div className="flex items-start space-x-3 p-3 bg-gray-800/50 rounded-lg border border-gray-600/50">
                     <div className="w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
                       <span className="text-amber-400 text-lg">📍</span>
@@ -283,7 +283,7 @@ const ClientList: React.FC = () => {
             )}
           </div>
           
-          {/* Información final cuando no hay más páginas */}
+          {/* Final information when there are no more pages */}
           {pagination && !pagination.hasNextPage && clients.length > 0 && (
             <div className="mt-6 p-4 bg-gradient-to-r from-gray-700 to-gray-800 border border-gray-600 rounded-xl text-center">
               <div className="flex items-center justify-center space-x-2 mb-2">

@@ -1,0 +1,61 @@
+name: Workflow
+
+on:
+  push:
+    branches:
+      - tests
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    env:
+      BACKEND_PORT: ${{ secrets.BACKEND_PORT }}
+      BACKEND_MONGODB_URI: ${{ secrets.BACKEND_MONGODB_URI }}
+      BACKEND_JWT_SECRET: ${{ secrets.BACKEND_JWT_SECRET }}
+      FRONTEND_GOOGLE_CLIENT_ID: ${{ secrets.FRONTEND_GOOGLE_CLIENT_ID }}
+      FRONTEND_API_LOGIN: ${{ secrets.FRONTEND_API_LOGIN }}
+      FRONTEND_API_USER: ${{ secrets.FRONTEND_API_USER }}
+      FRONTEND_API_AUTH: ${{ secrets.FRONTEND_API_AUTH }}
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Create backend .env file
+        run: |
+          echo "PORT=${BACKEND_PORT}" > backend/.env
+          echo "MONGODB_URI=${BACKEND_MONGODB_URI}" >> backend/.env
+          echo "JWT_SECRET=${BACKEND_JWT_SECRET}" >> backend/.env
+
+      - name: Create frontend .env file
+        run: |
+          echo "VITE_GOOGLE_CLIENT_ID=${FRONTEND_GOOGLE_CLIENT_ID}" > frontend/.env
+          echo "VITE_API_LOGIN=${FRONTEND_API_LOGIN}" >> frontend/.env
+          echo "VITE_API_USER=${FRONTEND_API_USER}" >> frontend/.env
+          echo "VITE_API_AUTH=${FRONTEND_API_AUTH}" >> frontend/.env
+
+      - name: Install root dependencies
+        run:
+        run: npm install
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Install frontend dependencies and build
+        run: |
+          cd frontend
+          npm install
+          npm run build
+
+      - name: Copy build to backend
+        run: |
+          rm -rf backend/dist
+          cp -r frontend/dist backend/
+
+      - name: Run backend tests
+        run: |
+          npm test

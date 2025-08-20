@@ -12,9 +12,9 @@
   "main": "index.js",
   "scripts": {
     "start": "cd backend && npm start",
-    "build": "cd backend && npm install && cd ../fronted && npm install && npm run build && cd .. && rm -rf backend/dist && cp -r fronted/dist backend/",
-    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix fronted\"",
-    "frontend": "cd fronted && npm run dev",
+    "build": "cd backend && npm install && cd ../frontend && npm install && npm run build && cd .. && rm -rf backend/dist && cp -r frontend/dist backend/",
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "frontend": "cd frontend && npm run dev",
     "backend": "cd backend && npm run dev",
     "test": "NODE_ENV=test node --test"
   },
