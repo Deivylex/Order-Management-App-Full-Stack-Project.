@@ -34,6 +34,9 @@ jobs:
           echo "VITE_API_USER=${FRONTEND_API_USER}" >> frontend/.env
           echo "VITE_API_AUTH=${FRONTEND_API_AUTH}" >> frontend/.env
 
+      - name: Instalar dependencias root
+        run:
+          npm install
       - name: Instalar dependencias backend
         run: |
           cd backend
