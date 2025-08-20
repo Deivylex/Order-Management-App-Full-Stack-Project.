@@ -38,7 +38,7 @@ loginRoute.post('/', async(req, res) => {
     })
 })
 
-loginRoute.post('/auth', middleware.antiSpamMiddleware, async(req, res) => {
+loginRoute.post('/auth', async(req, res) => {
     const body = req.body
     const existingUser = await user.findOne({email: body.email})
     if (existingUser)

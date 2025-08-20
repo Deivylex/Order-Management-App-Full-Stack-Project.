@@ -3,11 +3,15 @@ const green = '\x1b[32m'
 const red = '\x1b[31m'
 
 const info = (...params) => {
-    console.log(green,...params, resetColor)
+    if (process.env.NODE_ENV !== 'test') {    
+        console.log(green,...params, resetColor)
+    }
 }
 
 const error = (...params) => {
-    console.log(red, ...params, resetColor)
+    if (process.env.NODE_ENV !== 'test') {
+        console.log(red, ...params, resetColor)
+    }
 }
 
 module.exports = {info, error}
