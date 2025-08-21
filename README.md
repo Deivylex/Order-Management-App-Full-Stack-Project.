@@ -24,9 +24,11 @@ A modern full-stack web application designed for managing tortilla and nacho ord
 - **CORS** for cross-origin request handling
 
 ### DevOps & Deployment
-- **Render** cloud platform for deployment
-- **Automated builds** with Git change detection
+- **GitHub Actions** for automated CI/CD pipeline
+- **Node.js Testing** with native test runner
+- **MongoDB Atlas** cloud database integration
 - **Environment variables** for dev/prod configuration
+- **Automated builds** with Git change detection
 - **Optimized static file serving** for production
 
 ## 🚀 Key Features
@@ -51,6 +53,7 @@ A modern full-stack web application designed for managing tortilla and nacho ord
 - ✅ Comprehensive dashboard with business statistics
 - ✅ Real-time order management and status updates
 - ✅ Complete client database with 20K+ test records
+- ✅ **User management system** with role-based controls
 - ✅ **Infinite scroll pagination** for client list
 - ✅ Secure order deletion with confirmation prompts
 - ✅ **Settings page** (admin-only access)
@@ -62,6 +65,41 @@ A modern full-stack web application designed for managing tortilla and nacho ord
 - ✅ Tablet and smartphone optimization
 - ✅ Reusable components with Tailwind CSS
 - ✅ **Dark theme with professional styling**
+
+## 🧪 Testing
+
+### Automated Testing Suite
+- **Node.js Native Test Runner** for backend API testing
+- **Supertest** for HTTP endpoint testing
+- **MongoDB integration** testing with real database
+- **GitHub Actions CI/CD** pipeline for automated testing
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in backend directory
+cd backend && npm test
+
+# Run tests with timeout (for long-running tests)
+# Run tests with timeout (for long-running tests)
+# Unix/Linux:
+timeout 10 npm test
+
+# Windows (PowerShell):
+Start-Process -FilePath "npm" -ArgumentList "test" -Wait; Start-Sleep -Seconds 10; Stop-Process -Name "node"
+
+# Note: The 'timeout' command above works on Unix/Linux systems. On Windows, use the PowerShell example or consider using WSL or a cross-platform tool like 'npx wait-on'.
+```
+
+### Test Coverage
+- ✅ **Authentication endpoints** (login with valid/invalid credentials)
+- ✅ **API route availability** (GET /api status checks)
+- ✅ **JWT token validation** and response verification
+- ✅ **Error handling** for invalid requests
+- ✅ **Database connection** testing
 
 ## 🔧 Installation & Setup
 
@@ -152,6 +190,7 @@ The login page (`/login`) provides two quick access buttons for testing:
 - ✅ Update order statuses
 - ✅ Delete orders (with confirmation)
 - ✅ Access client database (20K+ records)
+- ✅ **User management and role administration**
 - ✅ **Exclusive Settings page access**
 - ✅ **Infinite scroll client pagination**
 
@@ -199,6 +238,7 @@ Backend_project/
 │   │   ├── components/    # React components
 │   │   │   ├── AdminPanel.tsx      # Admin dashboard
 │   │   │   ├── ClientList.tsx      # Paginated client list
+│   │   │   ├── UserList.tsx        # User management component
 │   │   │   ├── Header.tsx          # Navigation header
 │   │   │   ├── OrderForm.tsx       # Order creation form
 │   │   │   ├── OrderList.tsx       # User orders display
@@ -219,17 +259,42 @@ Backend_project/
 │   │       └── googleAuth.ts       # Google OAuth
 │   └── package.json
 ├── data_20k.json          # Test client database (20K records)
+├── test/                  # Test files directory
+│   └── testApi.test.js    # API endpoint tests
+├── .github/
+│   └── workflows/
+│       └── test.yml       # GitHub Actions CI/CD pipeline
 └── package.json           # Root scripts and dependencies
 ```
 
-## 🌐 Cloud Deployment
+## 🌐 Cloud Deployment & CI/CD
 
-The application is configured for automatic deployment on Render:
+### GitHub Actions Pipeline
+The application includes automated CI/CD pipeline with:
+
+1. **Automated Testing** on push to `tests` branch
+2. **Multi-environment support** (development/production)
+3. **Dependency installation** for both backend and frontend
+4. **Build process** with optimized production assets
+5. **Environment variable management** via GitHub Secrets
+
+### Pipeline Configuration
+```yaml
+# .github/workflows/test.yml
+- Install root dependencies
+- Install backend dependencies  
+- Install frontend dependencies and build
+- Copy build to backend
+- Run backend tests
+```
+
+### Deployment Ready
+The application is configured for deployment on any cloud platform:
 
 1. **Build Command:** `npm run build`
 2. **Start Command:** `npm start`
 3. **Auto-deployment** on Git push
-4. **Environment variables** configured in Render dashboard
+4. **Environment variables** configured via platform dashboard
 
 ## 🐛 Troubleshooting
 
@@ -269,6 +334,14 @@ The application is configured for automatic deployment on Render:
 - **Consistent branding** throughout application
 
 ## 🔄 Recent Updates
+
+### v2.1 - Testing & CI/CD Implementation
+- ✅ Added comprehensive API testing suite with Node.js native test runner
+- ✅ Implemented GitHub Actions CI/CD pipeline
+- ✅ Created UserList component for admin user management
+- ✅ Enhanced error handling in login authentication
+- ✅ Fixed routing issues and improved middleware architecture
+- ✅ Added automated testing on push with MongoDB integration
 
 ### v2.0 - Professional UI Overhaul
 - ✅ Implemented neutral slate/gray color scheme
