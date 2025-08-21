@@ -11,7 +11,7 @@ test('GET / returns 200 status code (homepage)', async () => {
     .expect(200)
 })
 
-test('Login ith valid credential, should return 200 and provide a valid token', async () => {
+test('Login with valid credentials, should return 200 and provide a valid token', async () => {
   const user = {
     email : 'guest',
     password : 'guest'
@@ -23,7 +23,7 @@ test('Login ith valid credential, should return 200 and provide a valid token', 
   assert(res.body.token, 'Token should be present in response')
 })
 
-test('Login with invalid credential, should return 401', async () => {
+test('Login with invalid credentials, should return 401', async () => {
   const user = {
     email : 'invalidUser',
     password : 'invalidUser'
