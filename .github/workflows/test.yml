@@ -3,7 +3,7 @@ name: Workflow
 on:
   push:
     branches:
-      - tests
+      - Newtests
   pull_request:
     branches:
       - main
@@ -38,8 +38,8 @@ jobs:
           echo "VITE_API_AUTH=${FRONTEND_API_AUTH}" >> frontend/.env
 
       - name: Install root dependencies
-        run:
         run: npm install
+
       - name: Install backend dependencies
         run: |
           cd backend
@@ -57,5 +57,4 @@ jobs:
           cp -r frontend/dist backend/
 
       - name: Run backend tests
-        run: |
-          npm test
+        run: npm test

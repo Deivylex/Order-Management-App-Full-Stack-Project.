@@ -20,8 +20,11 @@ loginRoute.post('/', async(req, res) => {
     const password = req.body.password
 
     const responseDb = await user.findOne({email})
+    if(!responseDb){
+        return res.status(401).json({error: "invalid user"})
+    }
     const valPassword = await bcrypt.compare(password, responseDb.passwordhash)
-    if(!responseDb || !valPassword){
+    if(!valPassword){
         return res.status(401).json({error: "invalid user"})
     }
     const userToken = {
