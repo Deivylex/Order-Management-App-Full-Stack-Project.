@@ -84,7 +84,14 @@ npm test
 cd backend && npm test
 
 # Run tests with timeout (for long-running tests)
+# Run tests with timeout (for long-running tests)
+# Unix/Linux:
 timeout 10 npm test
+
+# Windows (PowerShell):
+Start-Process -FilePath "npm" -ArgumentList "test" -Wait; Start-Sleep -Seconds 10; Stop-Process -Name "node"
+
+# Note: The 'timeout' command above works on Unix/Linux systems. On Windows, use the PowerShell example or consider using WSL or a cross-platform tool like 'npx wait-on'.
 ```
 
 ### Test Coverage
