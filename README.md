@@ -80,8 +80,6 @@ A modern full-stack web application designed for managing tortilla and nacho ord
 # Run all tests
 npm test
 
-```
-
 ### Test Coverage
 - ✅ **Authentication endpoints** (login with valid/invalid credentials)
 - ✅ **API route availability** (GET /api status checks)
