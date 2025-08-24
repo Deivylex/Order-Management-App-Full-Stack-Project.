@@ -31,8 +31,6 @@ jobs:
           echo "MONGODB_URI=${BACKEND_MONGODB_URI}" >> backend/.env
           echo "TEST_MONGODB_URI=${BACKEND_TEST_MONGODB_URI}" >> backend/.env
           echo "JWT_SECRET=${BACKEND_JWT_SECRET}" >> backend/.env
-          echo "NODE_ENV=test" >> backend/.env
-          cat backend/.env
 
       - name: Create frontend .env file
         run: |
