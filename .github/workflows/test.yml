@@ -14,6 +14,7 @@ jobs:
     env:
       BACKEND_PORT: ${{ secrets.BACKEND_PORT }}
       BACKEND_MONGODB_URI: ${{ secrets.BACKEND_MONGODB_URI }}
+      BACKEND_TEST_MONGODB_URI: ${{ secrets.BACKEND_TEST_MONGODB_URI }}
       BACKEND_JWT_SECRET: ${{ secrets.BACKEND_JWT_SECRET }}
       FRONTEND_GOOGLE_CLIENT_ID: ${{ secrets.FRONTEND_GOOGLE_CLIENT_ID }}
       FRONTEND_API_LOGIN: ${{ secrets.FRONTEND_API_LOGIN }}
@@ -28,6 +29,7 @@ jobs:
         run: |
           echo "PORT=${BACKEND_PORT}" > backend/.env
           echo "MONGODB_URI=${BACKEND_MONGODB_URI}" >> backend/.env
+          echo "TEST_MONGODB_URI=${BACKEND_TEST_MONGODB_URI}" >> backend/.env
           echo "JWT_SECRET=${BACKEND_JWT_SECRET}" >> backend/.env
 
       - name: Create frontend .env file
@@ -44,6 +46,7 @@ jobs:
         run: |
           cd backend
           npm install
+          npm list --depth=0
 
       - name: Install frontend dependencies and build
         run: |
@@ -58,3 +61,5 @@ jobs:
 
       - name: Run backend tests
         run: npm test
+        env:
+          NODE_ENV: test

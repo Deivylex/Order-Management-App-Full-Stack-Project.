@@ -80,20 +80,6 @@ A modern full-stack web application designed for managing tortilla and nacho ord
 # Run all tests
 npm test
 
-# Run tests in backend directory
-cd backend && npm test
-
-# Run tests with timeout (for long-running tests)
-# Run tests with timeout (for long-running tests)
-# Unix/Linux:
-timeout 10 npm test
-
-# Windows (PowerShell):
-Start-Process -FilePath "npm" -ArgumentList "test" -Wait; Start-Sleep -Seconds 10; Stop-Process -Name "node"
-
-# Note: The 'timeout' command above works on Unix/Linux systems. On Windows, use the PowerShell example or consider using WSL or a cross-platform tool like 'npx wait-on'.
-```
-
 ### Test Coverage
 - ✅ **Authentication endpoints** (login with valid/invalid credentials)
 - ✅ **API route availability** (GET /api status checks)
