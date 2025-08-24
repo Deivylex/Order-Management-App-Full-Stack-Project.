@@ -13,6 +13,13 @@ const orderRoute = require('./controller/order')
 
 const app = express()
 
+// Debug: Log environment and MongoDB URL
+if (process.env.NODE_ENV === 'test') {
+  console.log('NODE_ENV:', process.env.NODE_ENV)
+  console.log('MongoDB URL:', config.mongoUrl)
+  console.log('isDevelopment:', config.isDevelopment)
+}
+
 logger.info(`Connecting to MongoDB url ${config.mongoUrl}...`)
 mongoose.set('strictQuery',false)
 mongoose.connect(config.mongoUrl)
@@ -31,6 +38,15 @@ app.use('/api', appRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/login', loginRoute)
 app.use('/api/order', orderRoute)
+
+// Debug: Log registered routes
+if (process.env.NODE_ENV === 'test') {
+  console.log('Registered routes:')
+  console.log('- /api (appRoutes)')
+  console.log('- /api/users (userRoutes)')
+  console.log('- /api/login (loginRoute)')
+  console.log('- /api/order (orderRoute)')
+}
 
 if (!config.isDevelopment) {
   logger.info('Producction mode')
