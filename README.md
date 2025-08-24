@@ -80,11 +80,6 @@ A modern full-stack web application designed for managing tortilla and nacho ord
 # Run all tests
 npm test
 
-# Run tests in backend directory
-cd backend && npm test
-
-# Run tests with timeout (for long-running tests)
-timeout 10 npm test
 ```
 
 ### Test Coverage
